@@ -1,0 +1,128 @@
+[tos]
+url = "http://www.example.com/tos"
+
+[telegram]
+token = ""
+username = ""
+admins = ["fczuardi"]
+# Telegram group (chat_id) for broadcasters. Any member of this group can use
+# the /broadcast command to send SPAM
+broadcastGroup = ""
+# Telegram group (chat_id) for support. All contact messages are forwarded to
+# this group and all individual message reply is forwarded back to the user
+# who wrote that individual contact message
+supportGroup = ""
+
+[api]
+port = 58337
+
+# winston File transport options
+# see https://github.com/winstonjs/winston/blob/master/docs/transports.md#file-transport
+[log]
+filename = "telegram-updates.log"
+prettyPrint = false
+timestamp = true
+json = false
+
+[oauth]
+clientId = ""
+clientSecret = ""
+
+# ex: http://example.com/oauthcallback
+redirectUrl = ""
+
+# send a /token command to your bot and open the link
+# to start the flow that gives you the refreshToken value
+refreshToken = ""
+scopes = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.readonly"
+]
+
+[cron]
+# time in minutes between cronjob run
+interval = 5
+
+[sheets]
+# the share url of a google sheet
+url = ""
+
+[sheets.user]
+# a table with 4 columns to use for the application for
+# first column is the variable, second is a short caption
+# third is an input question and optionally a 4th column
+# with multiple choice answer separated by the | character
+questions = "Questions User!A2:D"
+
+# a table to store user given answers
+# plus 3 columns for telegram metadata: timestamp, tgfrom and userId
+answers = "Answers Users!A2:L"
+
+# what range to look for user application status
+# this should be 4 columns: status, notes, userId and notifiedFlag
+status = "Answers Users!L2:O"
+
+# Which columns to look for the userId and approved state.
+# Example: if the status column is the first of the range, the value is 0
+# if the userId column is the third one, the value is 2
+statusUserId = 0
+statusColumn = 1
+statusNotesColumn = 2
+statusNotificationColumn = 3
+
+# The value in the status column to consider an user approved
+approvedValue = "Approved"
+deniedValue = "Denied"
+notifiedValue = "Yes"
+
+[sheets.school]
+questions = "Questions School!A2:D11"
+
+# a table to store user given answers
+# plus 4 columns for telegram metadata:
+# timestamp, missionId, messageId and userId
+answers = "Answers School!A2:N2"
+
+# Google drive variables
+[drive]
+
+# This the root ID number that can be found on folder url.
+# ie:. https://drive.google.com/drive/some_path/{{rootId}}
+rootId = ""
+
+# If the folder menus should be presented as a custom keyboard instead of
+# inline keyboard
+useCustomKeyboard = true
+
+# When pressing the back button, display only the parent folder title
+# instead of the whole README
+parentMenuTitleOnly = true
+
+# path variable used inside program to save temp data.
+# don't forget to create this folder
+tempFolder = "./tmp"
+
+# subfolders with extra buttons
+[[drive.subFolderExtraButtons]]
+id = ""
+text = "Contato"
+callbackData = "contact"
+
+[[drive.subFolderExtraButtons]]
+id = ""
+text = "Indicar"
+callbackData = "schoolForm"
+
+[[drive.subFolderExtraButtons]]
+id = ""
+text = "Escolas Indicadas"
+callbackData = "status"
+
+# Those are the parameters used when making the request to google drive's
+# API service
+[drive.fields]
+corpus = "user"
+orderBy = "folder"
+pageSize = 1000
+fields = "files(fileExtension,fullFileExtension,id,kind,mimeType,name,originalFilename,ownedByMe,parents,trashed),kind,nextPageToken"
+
