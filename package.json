@@ -27,7 +27,7 @@
   "dependencies": {
     "express": "^4.14.1",
     "googleapis": "^16.1.0",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.5.3",
     "telegraf": "^3.6.6",
     "telegraf-googledrive": "^0.5.0",
     "telegraf-googlesheets": "^0.5.1",
